@@ -1,9 +1,6 @@
 # advanced
-# New Flutter App
 
 A new Flutter project.
-
-a Advaned login and Signup page instead of like any old page 
 
 ## Getting Started
 
