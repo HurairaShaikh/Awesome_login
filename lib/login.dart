@@ -67,9 +67,7 @@ class _LoginState extends State<Login> {
                         ),
                         child: const Text("Login"),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
@@ -97,9 +95,7 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   TextField(
                     decoration: InputDecoration(
                       hintText: "EMAIL",
@@ -120,9 +116,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   TextField(
                     decoration: InputDecoration(
                       hintText: "PASSWORD",
@@ -143,9 +137,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -160,52 +152,31 @@ class _LoginState extends State<Login> {
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.key,
-                          color: Colors.black,
-                        ),
-                        Text(
-                          " LogIn",
-                          style: TextStyle(color: Colors.black),
-                        ),
+                        Icon(Icons.key, color: Colors.black),
+                        Text(" LogIn", style: TextStyle(color: Colors.black)),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   const Text("Forgot Your Password?"),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   const Text("OR Continue with"),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleAvatar(
                         backgroundColor: Colors.white,
-                        child: Text(
-                          "G",
-                          style: TextStyle(color: Colors.black),
-                        ),
+                        child: Text("G", style: TextStyle(color: Colors.black)),
                       ),
                       CircleAvatar(
                         backgroundColor: Colors.white,
-                        child: Text(
-                          "F",
-                          style: TextStyle(color: Colors.black),
-                        ),
+                        child: Text("F", style: TextStyle(color: Colors.black)),
                       ),
                       CircleAvatar(
                         backgroundColor: Colors.white,
-                        child: Text(
-                          "@",
-                          style: TextStyle(color: Colors.blue),
-                        ),
+                        child: Text("@", style: TextStyle(color: Colors.blue)),
                       ),
                     ],
                   ),
