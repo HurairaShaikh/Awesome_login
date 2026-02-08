@@ -97,6 +97,7 @@ class _RegisterState extends State<Register> {
                     ),
                     const SizedBox(height: 10),
                     TextField(
+                      cursorColor: Colors.black,
                       decoration: InputDecoration(
                         hintText: "FULL NAME",
                         hintStyle: const TextStyle(
@@ -114,10 +115,15 @@ class _RegisterState extends State<Register> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(color: Colors.black),
                         ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Colors.black),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),
                     TextField(
+                      cursorColor: Colors.black,
                       decoration: InputDecoration(
                         hintText: "EMAIL",
                         hintStyle: const TextStyle(
@@ -135,10 +141,15 @@ class _RegisterState extends State<Register> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(color: Colors.black),
                         ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Colors.black),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),
                     TextField(
+                      cursorColor: Colors.black,
                       decoration: InputDecoration(
                         hintText: "PASSWORD",
                         hintStyle: const TextStyle(
@@ -156,10 +167,15 @@ class _RegisterState extends State<Register> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(color: Colors.black),
                         ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Colors.black),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),
                     TextField(
+                      cursorColor: Colors.black,
                       decoration: InputDecoration(
                         hintText: "CONFIRM PASSWORD",
                         hintStyle: const TextStyle(
@@ -174,6 +190,10 @@ class _RegisterState extends State<Register> {
                           borderSide: const BorderSide(color: Colors.black),
                         ),
                         enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Colors.black),
+                        ),
+                        focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(color: Colors.black),
                         ),
