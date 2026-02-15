@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:advanced/login.dart';
 
@@ -12,6 +13,15 @@ class _RegisterState extends State<Register> {
   Color login = Colors.white;
   Color register = Colors.white;
   bool loginactive = true;
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController fullname = TextEditingController();
+  TextEditingController confirmpass = TextEditingController();
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  User? get currentUser => firebaseAuth.currentUser;
+  Stream<User?> get authstatechange => firebaseAuth.authStateChanges();
+  final formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +31,7 @@ class _RegisterState extends State<Register> {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Container(
-              height: 500,
+              height: 550,
               decoration: BoxDecoration(
                 color: const Color(0xFFF1F3F6),
                 borderRadius: BorderRadius.circular(12),
@@ -96,112 +106,184 @@ class _RegisterState extends State<Register> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    TextField(
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        hintText: "FULL NAME",
-                        hintStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),
-                        isDense: true,
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        hintText: "EMAIL",
-                        hintStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),
-                        isDense: true,
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        hintText: "PASSWORD",
-                        hintStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),
-                        isDense: true,
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        hintText: "CONFIRM PASSWORD",
-                        hintStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),
-                        isDense: true,
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
+                    Form(
+                      key: formkey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Enter Fullname";
+                              }
+                              return null;
+                            },
+                            controller: fullname,
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              hintText: "FULL NAME",
+                              hintStyle: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Enter Email";
+                              }
+                              return null;
+                            },
+                            controller: email,
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              hintText: "EMAIL",
+                              hintStyle: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Enter Password";
+                              }
+                              return null;
+                            },
+                            controller: password,
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              hintText: "PASSWORD",
+                              hintStyle: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Enter again password";
+                              }
+                              return null;
+                            },
+                            controller: confirmpass,
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              hintText: "CONFIRM PASSWORD",
+                              hintStyle: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                              isDense: true,
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (formkey.currentState!.validate()) {
+                          await firebaseAuth.createUserWithEmailAndPassword(
+                            email: email.text.toString(),
+                            password: password.text.toString(),
+                          );
+                          setState(() {
+                            email.clear();
+                            password.clear();
+                            confirmpass.clear();
+                            fullname.clear();
+                          });
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),

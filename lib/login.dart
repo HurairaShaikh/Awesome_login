@@ -1,3 +1,6 @@
+import 'package:advanced/forgetpass.dart';
+import 'package:advanced/local/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:advanced/register.dart';
@@ -13,6 +16,13 @@ class _LoginState extends State<Login> {
   Color login = Colors.white;
   Color register = Colors.white;
   bool loginactive = true;
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  User? get currentUser => firebaseAuth.currentUser;
+  Stream<User?> get authstatechange => firebaseAuth.authStateChanges();
+  final formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +31,7 @@ class _LoginState extends State<Login> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Container(
-            height: 400,
+            height: 450,
             decoration: BoxDecoration(
               color: const Color(0xFFF1F3F6),
               borderRadius: BorderRadius.circular(12),
@@ -96,60 +106,102 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  TextField(
-                    cursorColor: Colors.black,
-                    decoration: InputDecoration(
-                      hintText: "EMAIL",
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                      isDense: true,
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    cursorColor: Colors.black,
-                    decoration: InputDecoration(
-                      hintText: "PASSWORD",
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                      isDense: true,
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
+                  Form(
+                    key: formkey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "enter email";
+                            }
+                            return null;
+                          },
+                          controller: email,
+                          keyboardType: TextInputType.emailAddress,
+                          cursorColor: Colors.black,
+                          decoration: InputDecoration(
+                            hintText: "EMAIL",
+                            prefixIcon: Icon(Icons.email),
+                            hintStyle: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
+                            isDense: true,
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter Password";
+                            }
+                            return null;
+                          },
+                          controller: password,
+                          obscureText: true,
+                          keyboardType: TextInputType.emailAddress,
+
+                          cursorColor: Colors.black,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.remove_red_eye),
+                            hintText: "Password",
+                            hintStyle: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
+                            isDense: true,
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (formkey.currentState!.validate()) {
+                        await firebaseAuth.signInWithEmailAndPassword(
+                          email: email.text.toString(),
+                          password: password.text.toString(),
+                        );
+                        setState(() {
+                          email.clear();
+                          password.clear();
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Home()),
+                        );
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -168,7 +220,15 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text("Forgot Your Password?"),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Forgetpass()),
+                      );
+                    },
+                    child: const Text("Forgot Your Password?"),
+                  ),
                   const SizedBox(height: 15),
                   const Text("OR Continue with"),
                   const SizedBox(height: 10),

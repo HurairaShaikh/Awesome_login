@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1034330779736",
+    "project_id": "login-b6988",
+    "storage_bucket": "login-b6988.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034330779736:android:a88f952c899d964f1ada2d",
+        "android_client_info": {
+          "package_name": "com.example.advanced"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFVsFzZbbDddaTxgVwn6-70WXKNwluOJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034330779736:android:a15e04d1358d88291ada2d",
+        "android_client_info": {
+          "package_name": "com.hurairas.advanced"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFVsFzZbbDddaTxgVwn6-70WXKNwluOJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
