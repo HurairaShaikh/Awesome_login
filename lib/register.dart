@@ -317,6 +317,7 @@ class _RegisterState extends State<Register> {
                         backgroundColor: Colors.white,
                         foregroundColor: Colors.black,
                         shadowColor: Colors.grey.shade400,
+                        minimumSize: Size(double.infinity, 40),
                         elevation: 6,
                       ),
                       child: loading
