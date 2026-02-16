@@ -154,6 +154,7 @@ class _RegisterState extends State<Register> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               hintText: "FULL NAME",
+                              prefixIcon: Icon(Icons.person),
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
@@ -194,6 +195,7 @@ class _RegisterState extends State<Register> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               hintText: "EMAIL",
+                              prefixIcon: Icon(Icons.email),
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
@@ -224,6 +226,7 @@ class _RegisterState extends State<Register> {
                           const SizedBox(height: 10),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
+                            obscureText: true,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter Password";
@@ -234,6 +237,7 @@ class _RegisterState extends State<Register> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               hintText: "PASSWORD",
+                              prefixIcon: Icon(Icons.password),
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
@@ -264,6 +268,7 @@ class _RegisterState extends State<Register> {
                           const SizedBox(height: 10),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
+                            obscureText: true,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter again password";
@@ -274,6 +279,7 @@ class _RegisterState extends State<Register> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               hintText: "CONFIRM PASSWORD",
+                              prefixIcon: Icon(Icons.password),
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
