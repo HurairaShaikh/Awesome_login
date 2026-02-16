@@ -46,12 +46,12 @@ class _RegisterState extends State<Register> {
           });
         });
 
-    setState(() {
-      email.clear();
-      password.clear();
-      confirmpass.clear();
-      fullname.clear();
-    });
+    // setState(() {
+    //   email.clear();
+    //   password.clear();
+    //   confirmpass.clear();
+    //   fullname.clear();
+    // });
   }
 
   @override
@@ -221,6 +221,7 @@ class _RegisterState extends State<Register> {
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter Password";
