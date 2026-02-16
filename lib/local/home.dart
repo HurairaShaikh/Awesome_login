@@ -37,13 +37,7 @@ class _HomeState extends State<Home> {
           icon: Icon(Icons.logout),
         ),
       ),
-      body: Center(
-        child: Text(
-          currentUser!.displayName.toString() +
-              "\n" +
-              currentUser!.email.toString(),
-        ),
-      ),
+      body: Center(child: Text("hello")),
     );
   }
 }

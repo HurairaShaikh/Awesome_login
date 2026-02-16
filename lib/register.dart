@@ -2,6 +2,7 @@ import 'package:advanced/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:advanced/login.dart';
+import 'package:flutter/src/foundation/change_notifier.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -22,6 +23,36 @@ class _RegisterState extends State<Register> {
   User? get currentUser => firebaseAuth.currentUser;
   Stream<User?> get authstatechange => firebaseAuth.authStateChanges();
   final formkey = GlobalKey<FormState>();
+  bool loading = false;
+
+  void signup() {
+    setState(() {
+      loading = true;
+    });
+    firebaseAuth
+        .createUserWithEmailAndPassword(
+          email: email.text.toString(),
+          password: password.text.toString(),
+        )
+        .then((value) {
+          setState(() {
+            loading = false;
+          });
+        })
+        .onError((error, stackTrace) {
+          Toast1().msg(error.toString());
+          setState(() {
+            loading = false;
+          });
+        });
+
+    setState(() {
+      email.clear();
+      password.clear();
+      confirmpass.clear();
+      fullname.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -272,23 +303,11 @@ class _RegisterState extends State<Register> {
                     const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
+                        setState(() {
+                          loading = false;
+                        });
                         if (formkey.currentState!.validate()) {
-                          firebaseAuth
-                              .createUserWithEmailAndPassword(
-                                email: email.text.toString(),
-                                password: password.text.toString(),
-                              )
-                              .then((value) {})
-                              .onError((error, stackTrace) {
-                                Toast1().msg(error.toString());
-                              });
-
-                          // setState(() {
-                          //   email.clear();
-                          //   password.clear();
-                          //   confirmpass.clear();
-                          //   fullname.clear();
-                          // });
+                          signup();
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -300,16 +319,28 @@ class _RegisterState extends State<Register> {
                         shadowColor: Colors.grey.shade400,
                         elevation: 6,
                       ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.person_add_sharp, color: Colors.black),
-                          Text(
-                            " Register",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ],
-                      ),
+                      child: loading
+                          ? Transform.scale(
+                              scale: 0.5,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 5,
+                                backgroundColor: Colors.white,
+                                color: Colors.blue,
+                              ),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.person_add_sharp,
+                                  color: Colors.black,
+                                ),
+                                Text(
+                                  " Register",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            ),
                     ),
                     const SizedBox(height: 10),
                     const Text("Or Continue with "),
