@@ -20,20 +20,34 @@ class _LoginState extends State<Login> {
   bool loginactive = true;
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  // User? get currentUser => firebaseAuth.currentUser;
-  // Stream<User?> get authstatechange => firebaseAuth.authStateChanges();
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  User? get currentUser => firebaseAuth.currentUser;
+  Stream<User?> get authstatechange => firebaseAuth.authStateChanges();
   final formkey = GlobalKey<FormState>();
-  bool loggedin = false;
+  bool loading = false;
 
   void loggin() {
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    loggedin = true;
+    setState(() {
+      loading = true;
+    });
+
     firebaseAuth
         .signInWithEmailAndPassword(email: email.text, password: password.text)
-        .then((value) {})
+        .then((value) {
+          setState(() {
+            loading = false;
+          });
+        })
         .onError((error, stackTrace) {
           Toast1().msg(error.toString());
+          setState(() {
+            loading = false;
+          });
         });
+    setState(() {
+      email.clear();
+      password.clear();
+    });
   }
 
   @override
@@ -213,18 +227,15 @@ class _LoginState extends State<Login> {
                     const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
+                        setState(() {
+                          loading = false;
+                        });
                         if (formkey.currentState!.validate()) {
                           loggin();
-                          // setState(() {
-                          //   email.clear();
-                          //   password.clear();
-                          // });
-                          if (loggedin) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Home()),
-                            );
-                          }
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => Home()),
+                          // );
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -234,15 +245,28 @@ class _LoginState extends State<Login> {
                         backgroundColor: Colors.white,
                         foregroundColor: Colors.black,
                         shadowColor: Colors.grey.shade400,
+                        minimumSize: Size(double.infinity, 40),
                         elevation: 6,
                       ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.key, color: Colors.black),
-                          Text(" LogIn", style: TextStyle(color: Colors.black)),
-                        ],
-                      ),
+                      child: loading
+                          ? Transform.scale(
+                              scale: 0.5,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 5,
+                                backgroundColor: Colors.white,
+                                color: Colors.blue,
+                              ),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.key, color: Colors.black),
+                                Text(
+                                  " LogIn",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            ),
                     ),
                     const SizedBox(height: 10),
                     InkWell(
