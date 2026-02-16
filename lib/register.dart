@@ -221,7 +221,7 @@ class _RegisterState extends State<Register> {
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.name,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter Password";
@@ -261,6 +261,7 @@ class _RegisterState extends State<Register> {
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter again password";
