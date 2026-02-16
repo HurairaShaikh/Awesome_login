@@ -143,6 +143,7 @@ class _RegisterState extends State<Register> {
                       child: Column(
                         children: [
                           TextFormField(
+                            keyboardType: TextInputType.name,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter Fullname";
@@ -182,6 +183,7 @@ class _RegisterState extends State<Register> {
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter Email";
@@ -221,7 +223,7 @@ class _RegisterState extends State<Register> {
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
-                            keyboardType: TextInputType.name,
+                            keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter Password";
