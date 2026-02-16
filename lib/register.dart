@@ -1,3 +1,4 @@
+import 'package:advanced/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:advanced/login.dart';
@@ -270,18 +271,24 @@ class _RegisterState extends State<Register> {
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () async {
+                      onPressed: () {
                         if (formkey.currentState!.validate()) {
-                          await firebaseAuth.createUserWithEmailAndPassword(
-                            email: email.text.toString(),
-                            password: password.text.toString(),
-                          );
-                          setState(() {
-                            email.clear();
-                            password.clear();
-                            confirmpass.clear();
-                            fullname.clear();
-                          });
+                          firebaseAuth
+                              .createUserWithEmailAndPassword(
+                                email: email.text.toString(),
+                                password: password.text.toString(),
+                              )
+                              .then((value) {})
+                              .onError((error, stackTrace) {
+                                Toast1().msg(error.toString());
+                              });
+
+                          // setState(() {
+                          //   email.clear();
+                          //   password.clear();
+                          //   confirmpass.clear();
+                          //   fullname.clear();
+                          // });
                         }
                       },
                       style: ElevatedButton.styleFrom(

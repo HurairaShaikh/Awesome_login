@@ -186,9 +186,9 @@ class _LoginState extends State<Login> {
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: () async {
+                    onPressed: ()  {
                       if (formkey.currentState!.validate()) {
-                        await firebaseAuth.signInWithEmailAndPassword(
+                         firebaseAuth.signInWithEmailAndPassword(
                           email: email.text.toString(),
                           password: password.text.toString(),
                         );
