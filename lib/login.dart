@@ -312,7 +312,14 @@ class _LoginState extends State<Login> {
                         CircleAvatar(
                           backgroundColor: Colors.white,
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Forgetpass(),
+                                ),
+                              );
+                            },
                             icon: Icon(Icons.phone, color: Colors.blue),
                           ),
                         ),
