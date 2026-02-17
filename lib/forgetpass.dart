@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Forgetpass extends StatefulWidget {
@@ -8,12 +9,19 @@ class Forgetpass extends StatefulWidget {
 }
 
 class _ForgetpassState extends State<Forgetpass> {
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Colors.white,
-      body: Center(child: Text("Forgot Password")),
+      body: Column(children: [
+        ElevatedButton(onPressed: (){
+          
+        }, child: Text("data")),
+
+        ],
+      ),
     );
   }
 }

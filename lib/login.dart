@@ -105,8 +105,8 @@ class _LoginState extends State<Login> {
                                 ? Colors.white
                                 : const Color(0xFFF1F3F6),
                             foregroundColor: Colors.black,
-                            //  shadowColor: Colors.grey.shade400,
-                            //  elevation: 6,
+                            shadowColor: Colors.grey.shade400,
+                            elevation: 6,
                           ),
                           child: const Text("Login"),
                         ),
@@ -131,8 +131,8 @@ class _LoginState extends State<Login> {
                                 ? Colors.white
                                 : const Color(0xFFF1F3F6),
                             foregroundColor: Colors.black,
-                            //  shadowColor: Colors.grey.shade400,
-                            //  elevation: 6,
+                            shadowColor: Colors.grey.shade400,
+                            elevation: 6,
                           ),
                           child: const Text("Register"),
                         ),
@@ -155,7 +155,7 @@ class _LoginState extends State<Login> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               hintText: "EMAIL",
-                              prefixIcon: Icon(Icons.email),
+                              suffixIcon: Icon(Icons.email),
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,

@@ -14,7 +14,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   Color login = Colors.white;
   Color register = Colors.white;
-  bool loginactive = true;
+  bool loginactive = false;
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController fullname = TextEditingController();
@@ -105,8 +105,8 @@ class _RegisterState extends State<Register> {
                                 ? Colors.white
                                 : const Color(0xFFF1F3F6),
                             foregroundColor: Colors.black,
-                            //  shadowColor: Colors.grey.shade400,
-                            //  elevation: 6,
+                            shadowColor: Colors.grey.shade400,
+                            elevation: 6,
                           ),
                           child: const Text("Login"),
                         ),
@@ -131,8 +131,8 @@ class _RegisterState extends State<Register> {
                                 ? Colors.white
                                 : const Color(0xFFF1F3F6),
                             foregroundColor: Colors.black,
-                            //  shadowColor: Colors.grey.shade400,
-                            //  elevation: 6,
+                            shadowColor: Colors.grey.shade400,
+                            elevation: 6,
                           ),
                           child: const Text("Register"),
                         ),
@@ -155,7 +155,7 @@ class _RegisterState extends State<Register> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               hintText: "FULL NAME",
-                              prefixIcon: Icon(Icons.person),
+                              suffixIcon: Icon(Icons.person),
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
@@ -196,7 +196,7 @@ class _RegisterState extends State<Register> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               hintText: "EMAIL",
-                              prefixIcon: Icon(Icons.email),
+                              suffixIcon: Icon(Icons.email),
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
@@ -375,7 +375,7 @@ class _RegisterState extends State<Register> {
                     const SizedBox(height: 10),
                     const Text("Or Continue with "),
                     const SizedBox(height: 15),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -395,9 +395,9 @@ class _RegisterState extends State<Register> {
                         ),
                         CircleAvatar(
                           backgroundColor: Colors.white,
-                          child: Text(
-                            "@",
-                            style: TextStyle(color: Colors.blue),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.phone, color: Colors.blue),
                           ),
                         ),
                       ],
