@@ -25,6 +25,7 @@ class _LoginState extends State<Login> {
   Stream<User?> get authstatechange => firebaseAuth.authStateChanges();
   final formkey = GlobalKey<FormState>();
   bool loading = false;
+  bool isobscure = true;
 
   void loggin() {
     setState(() {
@@ -37,6 +38,10 @@ class _LoginState extends State<Login> {
           setState(() {
             loading = false;
           });
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Home()),
+          );
         })
         .onError((error, stackTrace) {
           Toast1().msg(error.toString());
@@ -187,12 +192,21 @@ class _LoginState extends State<Login> {
                               return null;
                             },
                             controller: password,
-                            obscureText: true,
+                            obscureText: isobscure,
                             keyboardType: TextInputType.emailAddress,
 
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.remove_red_eye),
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    isobscure = !isobscure;
+                                  });
+                                },
+                                child: isobscure
+                                    ? Icon(Icons.visibility)
+                                    : Icon(Icons.visibility_off),
+                              ),
                               hintText: "Password",
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
@@ -232,10 +246,6 @@ class _LoginState extends State<Login> {
                         });
                         if (formkey.currentState!.validate()) {
                           loggin();
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => Home()),
-                          // );
                         }
                       },
                       style: ElevatedButton.styleFrom(

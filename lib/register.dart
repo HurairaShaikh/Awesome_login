@@ -24,6 +24,7 @@ class _RegisterState extends State<Register> {
   Stream<User?> get authstatechange => firebaseAuth.authStateChanges();
   final formkey = GlobalKey<FormState>();
   bool loading = false;
+  bool isobscure = true;
 
   void signup() {
     setState(() {
@@ -226,7 +227,7 @@ class _RegisterState extends State<Register> {
                           const SizedBox(height: 10),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
-                            obscureText: true,
+                            obscureText: isobscure,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter Password";
@@ -237,7 +238,16 @@ class _RegisterState extends State<Register> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               hintText: "PASSWORD",
-                              prefixIcon: Icon(Icons.password),
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    isobscure = !isobscure;
+                                  });
+                                },
+                                child: isobscure
+                                    ? Icon(Icons.visibility)
+                                    : Icon(Icons.visibility_off),
+                              ),
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
@@ -268,7 +278,7 @@ class _RegisterState extends State<Register> {
                           const SizedBox(height: 10),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
-                            obscureText: true,
+                            obscureText: isobscure,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter again password";
@@ -279,7 +289,16 @@ class _RegisterState extends State<Register> {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               hintText: "CONFIRM PASSWORD",
-                              prefixIcon: Icon(Icons.password),
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    isobscure = !isobscure;
+                                  });
+                                },
+                                child: isobscure
+                                    ? Icon(Icons.visibility)
+                                    : Icon(Icons.visibility_off),
+                              ),
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
