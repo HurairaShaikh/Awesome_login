@@ -11,16 +11,21 @@ class Forgetpass extends StatefulWidget {
 class _ForgetpassState extends State<Forgetpass> {
   final auth = FirebaseAuth.instance;
   TextEditingController phone = TextEditingController();
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.white),
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text("Phone Authentication"),
+      ),
+      backgroundColor: Colors.lightGreen,
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
               controller: phone,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -43,8 +48,44 @@ class _ForgetpassState extends State<Forgetpass> {
                 ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // setState(() {
+                //   loading = false;
+                // });
+              },
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                shadowColor: Colors.grey.shade400,
+                minimumSize: Size(double.infinity, 40),
+                elevation: 6,
+              ),
+              child:
+                  // loading
+                  //     ? Transform.scale(
+                  //         scale: 0.5,
+                  //         child: CircularProgressIndicator(
+                  //           strokeWidth: 5,
+                  //           backgroundColor: Colors.white,
+                  //           color: Colors.blue,
+                  //         ),
+                  //       )
+                  //     :
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.person_add_sharp, color: Colors.black),
+                      Text("Login ", style: TextStyle(color: Colors.black)),
+                    ],
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
