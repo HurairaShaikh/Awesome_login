@@ -291,7 +291,7 @@ class _LoginState extends State<Login> {
                     const SizedBox(height: 15),
                     const Text("OR Continue with"),
                     const SizedBox(height: 10),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -311,9 +311,9 @@ class _LoginState extends State<Login> {
                         ),
                         CircleAvatar(
                           backgroundColor: Colors.white,
-                          child: Text(
-                            "@",
-                            style: TextStyle(color: Colors.blue),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.phone, color: Colors.blue),
                           ),
                         ),
                       ],
