@@ -1,3 +1,4 @@
+import 'package:advanced/forgetpass.dart';
 import 'package:advanced/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -396,7 +397,14 @@ class _RegisterState extends State<Register> {
                         CircleAvatar(
                           backgroundColor: Colors.white,
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Forgetpass(),
+                                ),
+                              );
+                            },
                             icon: Icon(Icons.phone, color: Colors.blue),
                           ),
                         ),
