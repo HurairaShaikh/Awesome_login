@@ -1,4 +1,6 @@
 import 'package:advanced/utils/style.dart';
+import 'package:advanced/utils/toast.dart';
+import 'package:advanced/verify_phone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +35,27 @@ class _ForgetpassState extends State<Forgetpass> {
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(color: Colors.black),
       ),
+    );
+  }
+
+  void signinwithphone() {
+    auth.verifyPhoneNumber(
+      phoneNumber: phone.text,
+      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
+      verificationFailed: (FirebaseAuthException error) {
+        Toast1().msg(error.toString());
+      },
+      codeSent: (String verificationId, int? token) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VerifyPhone(verficationid: verificationId),
+          ),
+        );
+      },
+      codeAutoRetrievalTimeout: (error) {
+        Toast1().msg(error.toString());
+      },
     );
   }
 
