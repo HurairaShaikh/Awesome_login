@@ -1,5 +1,6 @@
-import 'package:advanced/forgetpass.dart';
+import 'package:advanced/phone_auth.dart';
 import 'package:advanced/local/home.dart';
+import 'package:advanced/utils/style.dart';
 import 'package:advanced/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,11 @@ class _LoginState extends State<Login> {
   final formkey = GlobalKey<FormState>();
   bool loading = false;
   bool isobscure = true;
+
+  final border = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(12),
+    borderSide: const BorderSide(color: Colors.black),
+  );
 
   void loggin() {
     setState(() {
@@ -154,33 +160,18 @@ class _LoginState extends State<Login> {
                             keyboardType: TextInputType.emailAddress,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
-                              hintText: "EMAIL",
-                              suffixIcon: Icon(Icons.email),
+                              hintText: "Email",
                               hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 14,
                               ),
                               isDense: true,
                               filled: true,
+                              suffixIcon: Icon(Icons.email),
                               fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
+                              border: border,
+                              enabledBorder: border,
+                              focusedBorder: border,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -197,6 +188,13 @@ class _LoginState extends State<Login> {
 
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
+                              hintText: "Password",
+                              hintStyle: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                              isDense: true,
+                              filled: true,
                               suffixIcon: InkWell(
                                 onTap: () {
                                   setState(() {
@@ -207,32 +205,10 @@ class _LoginState extends State<Login> {
                                     ? Icon(Icons.visibility)
                                     : Icon(Icons.visibility_off),
                               ),
-                              hintText: "Password",
-                              hintStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 14,
-                              ),
-                              isDense: true,
-                              filled: true,
                               fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
+                              border: border,
+                              enabledBorder: border,
+                              focusedBorder: border,
                             ),
                           ),
                         ],
@@ -248,16 +224,7 @@ class _LoginState extends State<Login> {
                           loggin();
                         }
                       },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
-                        shadowColor: Colors.grey.shade400,
-                        minimumSize: Size(double.infinity, 40),
-                        elevation: 6,
-                      ),
+                      style: Style().style,
                       child: loading
                           ? Transform.scale(
                               scale: 0.5,

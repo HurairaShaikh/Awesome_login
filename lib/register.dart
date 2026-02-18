@@ -1,9 +1,9 @@
-import 'package:advanced/forgetpass.dart';
+import 'package:advanced/phone_auth.dart';
+import 'package:advanced/utils/style.dart';
 import 'package:advanced/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:advanced/login.dart';
-import 'package:flutter/src/foundation/change_notifier.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -26,6 +26,11 @@ class _RegisterState extends State<Register> {
   final formkey = GlobalKey<FormState>();
   bool loading = false;
   bool isobscure = true;
+  bool isobscure1 = true;
+  final border = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(12),
+    borderSide: const BorderSide(color: Colors.black),
+  );
 
   void signup() {
     setState(() {
@@ -164,24 +169,9 @@ class _RegisterState extends State<Register> {
                               isDense: true,
                               filled: true,
                               fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
+                              border: border,
+                              enabledBorder: border,
+                              focusedBorder: border,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -205,24 +195,9 @@ class _RegisterState extends State<Register> {
                               isDense: true,
                               filled: true,
                               fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
+                              border: border,
+                              enabledBorder: border,
+                              focusedBorder: border,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -256,30 +231,15 @@ class _RegisterState extends State<Register> {
                               isDense: true,
                               filled: true,
                               fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
+                              border: border,
+                              enabledBorder: border,
+                              focusedBorder: border,
                             ),
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
-                            obscureText: isobscure,
+                            obscureText: isobscure1,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Enter again password";
@@ -293,10 +253,10 @@ class _RegisterState extends State<Register> {
                               suffixIcon: InkWell(
                                 onTap: () {
                                   setState(() {
-                                    isobscure = !isobscure;
+                                    isobscure1 = !isobscure1;
                                   });
                                 },
-                                child: isobscure
+                                child: isobscure1
                                     ? Icon(Icons.visibility)
                                     : Icon(Icons.visibility_off),
                               ),
@@ -307,24 +267,9 @@ class _RegisterState extends State<Register> {
                               isDense: true,
                               filled: true,
                               fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
+                              border: border,
+                              enabledBorder: border,
+                              focusedBorder: border,
                             ),
                           ),
                         ],
@@ -340,16 +285,7 @@ class _RegisterState extends State<Register> {
                           signup();
                         }
                       },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
-                        shadowColor: Colors.grey.shade400,
-                        minimumSize: Size(double.infinity, 40),
-                        elevation: 6,
-                      ),
+                      style: Style().style,
                       child: loading
                           ? Transform.scale(
                               scale: 0.5,
