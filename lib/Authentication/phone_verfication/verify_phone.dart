@@ -1,4 +1,6 @@
 import 'package:advanced/utils/style.dart';
+import 'package:advanced/utils/toast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class VerifyPhone extends StatefulWidget {
@@ -10,12 +12,40 @@ class VerifyPhone extends StatefulWidget {
 }
 
 class _VerifyPhoneState extends State<VerifyPhone> {
+
+  final auth = FirebaseAuth.instance;
+  TextEditingController phone = TextEditingController();
+  bool loading = false;
+  final form = GlobalKey<FormState>();
+    InputDecoration inputDecoration(String hint, Widget icon) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
+      isDense: true,
+      filled: true,
+      prefixIcon: icon,
+      fillColor: Colors.white,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.black),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.black),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.black),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFF1F3F6),
-        title: Text("Phone Authentication"),
+        title: Text("Verify Phone Number"),
         centerTitle: true,
         //automaticallyImplyLeading: false,
       ),
@@ -31,14 +61,14 @@ class _VerifyPhoneState extends State<VerifyPhone> {
               child: TextFormField(
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "Enter Number";
+                    return "Enter code";
                   }
                   return null;
                 },
                 controller: phone,
                 keyboardType: TextInputType.number,
                 decoration: inputDecoration(
-                  "Enter Phone Number",
+                  "6-digit Code",
                   Icon(Icons.phone),
                 ),
               ),
