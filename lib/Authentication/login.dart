@@ -5,7 +5,7 @@ import 'package:advanced/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:advanced/register.dart';
+import 'package:advanced/Authentication/register.dart';
 import 'package:flutter/services.dart';
 
 class Login extends StatefulWidget {

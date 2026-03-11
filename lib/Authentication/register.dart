@@ -1,9 +1,9 @@
-import 'package:advanced/phone_auth.dart';
+import 'package:advanced/Authentication/phone_verfication/phone_auth.dart';
 import 'package:advanced/utils/style.dart';
 import 'package:advanced/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:advanced/login.dart';
+import 'package:advanced/Authentication/login.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});

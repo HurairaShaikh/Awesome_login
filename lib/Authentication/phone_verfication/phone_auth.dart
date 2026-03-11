@@ -1,6 +1,6 @@
 import 'package:advanced/utils/style.dart';
 import 'package:advanced/utils/toast.dart';
-import 'package:advanced/verify_phone.dart';
+import 'package:advanced/Authentication/phone_verfication/verify_phone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
