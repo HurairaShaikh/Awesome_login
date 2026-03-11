@@ -40,24 +40,36 @@ class _ForgetpassState extends State<Forgetpass> {
   }
 
   void signinwithphone() {
-    auth.verifyPhoneNumber(
-      phoneNumber: phone.text,
-      verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
-      verificationFailed: (FirebaseAuthException error) {
-        Toast1().msg(error.toString());
-      },
-      codeSent: (String verificationId, int? token) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => VerifyPhone(verficationid: verificationId),
-          ),
-        );
-      },
-      codeAutoRetrievalTimeout: (error) {
-        Toast1().msg(error.toString());
-      },
-    );
+    setState(() {
+      loading = true;
+      auth.verifyPhoneNumber(
+        phoneNumber: phone.text,
+        verificationCompleted: (_) {},
+        verificationFailed: (e) {
+          setState(() {
+            loading = false;
+          });
+          Toast1().msg(e.toString());
+        },
+        codeSent: (String verificationid, int? token) {
+          setState(() {
+            loading = false;
+          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VerifyPhone(verficationid: verificationid),
+            ),
+          );
+        },
+        codeAutoRetrievalTimeout: (e) {
+          setState(() {
+            loading = false;
+          });
+          Toast1().msg(e.toString());
+        },
+      );
+    });
   }
 
   final form = GlobalKey<FormState>();
@@ -99,25 +111,7 @@ class _ForgetpassState extends State<Forgetpass> {
             ElevatedButton(
               onPressed: () {
                 if (form.currentState!.validate()) {
-                  auth.verifyPhoneNumber(
-                    phoneNumber: phone.text,
-                    verificationCompleted: (_) {},
-                    verificationFailed: (e) {
-                      Toast1().msg(e.toString());
-                    },
-                    codeSent: (String verificationid, int? token) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              VerifyPhone(verficationid: verificationid),
-                        ),
-                      );
-                    },
-                    codeAutoRetrievalTimeout: (e) {
-                      Toast1().msg(e.toString());
-                    },
-                  );
+                  signinwithphone();
                 }
                 // setState(() {
                 //   loading = false;

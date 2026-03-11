@@ -1,3 +1,4 @@
+import 'package:advanced/local/home.dart';
 import 'package:advanced/utils/style.dart';
 import 'package:advanced/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,12 +13,11 @@ class VerifyPhone extends StatefulWidget {
 }
 
 class _VerifyPhoneState extends State<VerifyPhone> {
-
   final auth = FirebaseAuth.instance;
-  TextEditingController phone = TextEditingController();
+  TextEditingController verifycode = TextEditingController();
   bool loading = false;
   final form = GlobalKey<FormState>();
-    InputDecoration inputDecoration(String hint, Widget icon) {
+  InputDecoration inputDecoration(String hint, Widget icon) {
     return InputDecoration(
       hintText: hint,
       hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
@@ -65,54 +65,52 @@ class _VerifyPhoneState extends State<VerifyPhone> {
                   }
                   return null;
                 },
-                controller: phone,
+                controller: verifycode,
                 keyboardType: TextInputType.number,
-                decoration: inputDecoration(
-                  "6-digit Code",
-                  Icon(Icons.phone),
-                ),
+                decoration: inputDecoration("6-digit Code", Icon(Icons.phone)),
               ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                setState(() {
+                  loading = true;
+                });
                 if (form.currentState!.validate()) {
-                  auth.verifyPhoneNumber(
-                    phoneNumber: phone.text,
-                    verificationCompleted: (_) {},
-                    verificationFailed: (e) {
-                      Toast1().msg(e.toString());
-                    },
-                    codeSent: (String verificationid, int? token) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              VerifyPhone(verficationid: verificationid),
-                        ),
-                      );
-                    },
-                    codeAutoRetrievalTimeout: (e) {
-                      Toast1().msg(e.toString());
-                    },
+                  final credential = PhoneAuthProvider.credential(
+                    verificationId: widget.verficationid,
+                    smsCode: verifycode.text,
                   );
+                  try {
+                    await auth.signInWithCredential(credential);
+                    setState(() {
+                      loading = false;
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  } catch (e) {
+                    setState(() {
+                      loading = false;
+                    });
+                    Toast1().msg(e.toString());
+                  }
                 }
-                // setState(() {
-                //   loading = false;
-                // });
+               
               },
               style: Style().style,
               child:
-                  // loading
-                  //     ? Transform.scale(
-                  //         scale: 0.5,
-                  //         child: CircularProgressIndicator(
-                  //           strokeWidth: 5,
-                  //           backgroundColor: Colors.white,
-                  //           color: Colors.blue,
-                  //         ),
-                  //       )
-                  //     :
+                  loading
+                      ? Transform.scale(
+                          scale: 0.5,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 5,
+                            backgroundColor: Colors.white,
+                            color: Colors.blue,
+                          ),
+                        )
+                      :
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
