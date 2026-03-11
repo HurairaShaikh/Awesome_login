@@ -3,7 +3,7 @@ import 'package:advanced/utils/toast.dart';
 import 'package:advanced/Authentication/phone_verfication/verify_phone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 
 class Forgetpass extends StatefulWidget {
   const Forgetpass({super.key});
@@ -44,7 +44,12 @@ class _ForgetpassState extends State<Forgetpass> {
       loading = true;
       auth.verifyPhoneNumber(
         phoneNumber: phone.text,
-        verificationCompleted: (_) {},
+
+        verificationCompleted: (_) {
+          setState(() {
+            loading = false;
+          });
+        },
         verificationFailed: (e) {
           setState(() {
             loading = false;
@@ -113,30 +118,25 @@ class _ForgetpassState extends State<Forgetpass> {
                 if (form.currentState!.validate()) {
                   signinwithphone();
                 }
-                // setState(() {
-                //   loading = false;
-                // });
               },
               style: Style().style,
-              child:
-                  // loading
-                  //     ? Transform.scale(
-                  //         scale: 0.5,
-                  //         child: CircularProgressIndicator(
-                  //           strokeWidth: 5,
-                  //           backgroundColor: Colors.white,
-                  //           color: Colors.blue,
-                  //         ),
-                  //       )
-                  //     :
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.person_add_sharp, color: Colors.black),
-                      SizedBox(width: 10),
-                      Text("Continue", style: TextStyle(color: Colors.black)),
-                    ],
-                  ),
+              child: loading
+                  ? Transform.scale(
+                      scale: 0.5,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 5,
+                        backgroundColor: Colors.white,
+                        color: Colors.blue,
+                      ),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.person_add_sharp, color: Colors.black),
+                        SizedBox(width: 10),
+                        Text("Continue", style: TextStyle(color: Colors.black)),
+                      ],
+                    ),
             ),
           ],
         ),

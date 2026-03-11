@@ -31,6 +31,12 @@ class _LoginState extends State<Login> {
     borderRadius: BorderRadius.circular(12),
     borderSide: const BorderSide(color: Colors.black),
   );
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
 
   void loggin() {
     setState(() {
