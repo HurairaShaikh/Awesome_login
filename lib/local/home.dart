@@ -18,26 +18,36 @@ class _HomeState extends State<Home> {
   //   }
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   User? get currentUser => firebaseAuth.currentUser;
-  Stream<User?> get authstatechange => firebaseAuth.authStateChanges();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text("Logged in page"),
-        leading: IconButton(
-          onPressed: () {
-            firebaseAuth.signOut();
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Login()),
-            );
-          },
-          icon: Icon(Icons.logout),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            onPressed: () {
+              firebaseAuth.signOut();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
+            },
+            icon: Icon(Icons.logout),
+          ),
+        ],
+      ),
+      body: Center(
+        child: Text(
+          currentUser!.email.toString() +
+              "\n" +
+              currentUser!.displayName.toString(),
         ),
       ),
-      body: Center(child: Text("hello")),
     );
   }
 }

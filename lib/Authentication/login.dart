@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'package:advanced/Authentication/register.dart';
 
-
 class Login extends StatefulWidget {
   const Login({super.key});
 

@@ -68,7 +68,7 @@ class _ForgetpassState extends State<Forgetpass> {
         backgroundColor: Colors.white,
         title: Text("Phone Authentication"),
       ),
-      backgroundColor: Colors.pink[100],
+
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(

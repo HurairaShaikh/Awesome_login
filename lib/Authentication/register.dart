@@ -22,7 +22,7 @@ class _RegisterState extends State<Register> {
   TextEditingController confirmpass = TextEditingController();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   User? get currentUser => firebaseAuth.currentUser;
-  Stream<User?> get authstatechange => firebaseAuth.authStateChanges();
+
   final formkey = GlobalKey<FormState>();
   bool loading = false;
   bool isobscure = true;
@@ -31,34 +31,36 @@ class _RegisterState extends State<Register> {
     borderRadius: BorderRadius.circular(12),
     borderSide: const BorderSide(color: Colors.black),
   );
+  @override
+  void dispose() {
+    email.dispose();
+    fullname.dispose();
+    password.dispose();
+    confirmpass.dispose();
+    super.dispose();
+  }
 
-  void signup() {
+  void signup() async {
     setState(() {
       loading = true;
     });
-    firebaseAuth
-        .createUserWithEmailAndPassword(
-          email: email.text.toString(),
-          password: password.text.toString(),
-        )
-        .then((value) {
-          setState(() {
-            loading = false;
-          });
-        })
-        .onError((error, stackTrace) {
-          Toast1().msg(error.toString());
-          setState(() {
-            loading = false;
-          });
-        });
+    try {
+      await firebaseAuth.createUserWithEmailAndPassword(
+        email: email.text.toString(),
+        password: password.text.toString(),
+      );
+      currentUser!.updateProfile(displayName: fullname.text);
+      currentUser!.reload();
 
-    // setState(() {
-    //   email.clear();
-    //   password.clear();
-    //   confirmpass.clear();
-    //   fullname.clear();
-    // });
+      setState(() {
+        loading = false;
+      });
+    } catch (e) {
+      Toast1().msg(e.toString());
+      setState(() {
+        loading = false;
+      });
+    }
   }
 
   @override
