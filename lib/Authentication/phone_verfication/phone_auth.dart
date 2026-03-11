@@ -3,6 +3,7 @@ import 'package:advanced/utils/toast.dart';
 import 'package:advanced/Authentication/phone_verfication/verify_phone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Forgetpass extends StatefulWidget {
   const Forgetpass({super.key});
@@ -65,9 +66,12 @@ class _ForgetpassState extends State<Forgetpass> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFF1F3F6),
         title: Text("Phone Authentication"),
+        centerTitle: true,
+        //automaticallyImplyLeading: false,
       ),
+      backgroundColor: Color(0xFFF1F3F6),
 
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -94,7 +98,27 @@ class _ForgetpassState extends State<Forgetpass> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                if (form.currentState!.validate()) {}
+                if (form.currentState!.validate()) {
+                  auth.verifyPhoneNumber(
+                    phoneNumber: phone.text,
+                    verificationCompleted: (_) {},
+                    verificationFailed: (e) {
+                      Toast1().msg(e.toString());
+                    },
+                    codeSent: (String verificationid, int? token) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              VerifyPhone(verficationid: verificationid),
+                        ),
+                      );
+                    },
+                    codeAutoRetrievalTimeout: (e) {
+                      Toast1().msg(e.toString());
+                    },
+                  );
+                }
                 // setState(() {
                 //   loading = false;
                 // });
@@ -116,7 +140,7 @@ class _ForgetpassState extends State<Forgetpass> {
                     children: [
                       Icon(Icons.person_add_sharp, color: Colors.black),
                       SizedBox(width: 10),
-                      Text("Login ", style: TextStyle(color: Colors.black)),
+                      Text("Continue", style: TextStyle(color: Colors.black)),
                     ],
                   ),
             ),
