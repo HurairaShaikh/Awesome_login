@@ -51,7 +51,7 @@ class _RegisterState extends State<Register> {
       );
       currentUser!.updateProfile(displayName: fullname.text);
       currentUser!.reload();
-
+      Toast1().msg("Register Successfully");
       setState(() {
         loading = false;
       });

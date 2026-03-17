@@ -6,10 +6,10 @@ class Toast1 {
     Fluttertoast.showToast(
       msg: message,
       gravity: ToastGravity.BOTTOM,
-      toastLength: Toast.LENGTH_LONG ,
+      toastLength: Toast.LENGTH_LONG,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
+      backgroundColor: Colors.white,
+      textColor: Color(0xff000000),
       fontSize: 16.0,
     );
   }
