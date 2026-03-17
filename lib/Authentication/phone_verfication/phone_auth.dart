@@ -4,7 +4,6 @@ import 'package:advanced/Authentication/phone_verfication/verify_phone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
 class Forgetpass extends StatefulWidget {
   const Forgetpass({super.key});
 
