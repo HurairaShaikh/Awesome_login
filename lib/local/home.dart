@@ -42,11 +42,7 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: Center(
-        child: Text(
-          currentUser!.email.toString() +
-              "\n" +
-              currentUser!.displayName.toString(),
-        ),
+        child: Text("Hi ${currentUser!.displayName??""}\n${currentUser!.email}"),
       ),
     );
   }
